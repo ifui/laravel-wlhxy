@@ -16,7 +16,7 @@ return [
     |
     | Supported: "gd", "imagick"
     |
-    */
+     */
     'driver' => env('IMAGE_DRIVER', 'gd'),
 
     // Initial generator class
@@ -38,7 +38,7 @@ return [
     'chars' => 2,
 
     // font size
-    'fontSize' => 48,
+    'fontSize' => 40,
 
     // convert initial letter in uppercase
     'uppercase' => false,
@@ -72,7 +72,7 @@ return [
     ],
 
     'border' => [
-        'size' => 1,
+        'size' => 0,
 
         // border color, available value are:
         // 'foreground' (same as foreground color)

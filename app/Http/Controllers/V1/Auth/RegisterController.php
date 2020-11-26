@@ -19,14 +19,19 @@ class RegisterController extends Controller
     public function register(RegisterRequest $request)
     {
         try {
-            User::create([
-                'username' => $request['username'],
-                'password' => Hash::make($request['password']),
-            ]);
+            $user = new User();
 
-            return $this->success('注册成功');
+            $user->username = $request['username'];
+            $user->password = Hash::make($request['password']);
+
+            // 自动生成用户头像
+            $user->avatar = $this->create_avatar($user->username);
+
+            $user->save();
+
+            return $this->success('注册成功', 201);
         } catch (Exception $e) {
-            return $this->response->error('用户注册失败');
+            return $this->response->error('用户注册失败', 401);
         }
     }
 }
