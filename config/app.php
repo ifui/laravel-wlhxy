@@ -177,6 +177,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         // overtrue lang
         Overtrue\LaravelLang\TranslationServiceProvider::class,
+        // 模型过滤包
+        EloquentFilter\ServiceProvider::class,
 
     ],
 
