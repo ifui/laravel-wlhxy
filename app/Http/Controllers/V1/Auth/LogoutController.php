@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Auth;
+namespace App\Http\Controllers\V1\Auth;
 
-use App\Http\Controllers\Admin\BaseController as Controller;
+use App\Http\Controllers\V1\BaseController as Controller;
 
 class LogoutController extends Controller
 {

@@ -2,25 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Dingo\Api\Routing\Helpers;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Support\Facades\Auth;
 
 class Controller extends BaseController
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-
-    /**
-     * 返回认证守卫
-     *
-     * @return @var \Illuminate\Support\Facades\Auth $auth
-     */
-    public function auth()
-    {
-        return Auth::guard('admin');
-    }
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests, Helpers;
 
     /**
      * 返回成功信息

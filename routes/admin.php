@@ -26,7 +26,7 @@ $api->group($params_v1, function ($api) {
     $api->group(['namespace' => 'Auth'], function ($api) {
         $api->post('login', 'LoginController@login')->name('login');
         $api->post('register', 'RegisterController@register')->name('register');
-        // Auth:api
+        // Auth:admin
         $api->group(['middleware' => 'auth:admin'], function ($api) {
             // 退出登录
             $api->get('logout', 'LogoutController@logout')->name('logout');

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Auth;
+namespace App\Http\Controllers\V1\Auth;
 
-use App\Http\Controllers\Admin\BaseController as Controller;
-use App\Http\Requests\Auth\AdminRegisterRequest;
-use App\Models\AdminUser;
+use App\Http\Controllers\V1\BaseController as Controller;
+use App\Http\Requests\Auth\RegisterRequest;
+use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\Hash;
 
@@ -16,10 +16,10 @@ class RegisterController extends Controller
      * @param RegisterRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function register(AdminRegisterRequest $request)
+    public function register(RegisterRequest $request)
     {
         try {
-            AdminUser::create([
+            User::create([
                 'username' => $request['username'],
                 'password' => Hash::make($request['password']),
             ]);

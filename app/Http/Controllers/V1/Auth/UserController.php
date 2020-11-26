@@ -1,23 +1,23 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Auth;
+namespace App\Http\Controllers\V1\Auth;
 
-use App\Http\Controllers\Admin\BaseController as Controller;
-use App\Models\AdminUser;
+use App\Http\Controllers\V1\BaseController as Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class AdminUserController extends Controller
+class UserController extends Controller
 {
     /**
-     * 返回后台登录用户信息
+     * 返回登录用户信息
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
         $id = Auth::user()->id;
-        $data = AdminUser::find($id);
+        $data = User::find($id);
         return $data;
     }
 
