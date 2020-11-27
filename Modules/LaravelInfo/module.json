@@ -1,0 +1,13 @@
+{
+    "name": "LaravelInfo",
+    "alias": "laravelinfo",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\LaravelInfo\\Providers\\LaravelInfoServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
