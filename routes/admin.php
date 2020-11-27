@@ -8,6 +8,7 @@
 | admin 路由表
 |
  */
+use Illuminate\Support\Facades\Route;
 
 $api = app('Dingo\Api\Routing\Router');
 
@@ -35,6 +36,25 @@ $api->group($params_v1, function ($api) {
             $api->resource('user', 'AdminUserController');
 
         });
+    });
 
+    // 后台管理相关API
+    $api->group(['middleware' => 'auth:admin'], function ($api) {
+
+        // 权限管理相关路由    注: 此操作应该为最高管理员权限才能执行
+        $api->group([
+            'namespace' => 'Permission',
+        ], function ($api) {
+            Route::pattern('permission', '[0-9]+');
+            $api->resource('permissions', 'PermissionController');
+        });
+
+        // 角色管理相关路由    注: 此操作应该为最高管理员权限才能执行
+        $api->group([
+            'namespace' => 'Role',
+        ], function ($api) {
+            Route::pattern('role', '[0-9]+');
+            $api->resource('roles', 'RoleController');
+        });
     });
 });

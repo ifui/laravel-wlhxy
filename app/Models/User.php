@@ -2,13 +2,19 @@
 
 namespace App\Models;
 
+use EloquentFilter\Filterable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use Notifiable;
+    // HasRoles laravel-permission, Filterable eloquentfilter
+    use Notifiable, HasRoles, Filterable;
+
+    // 指定守卫,参考 config/auth/guards
+    protected $guard_name = 'api';
 
     /**
      * The attributes that are mass assignable.
