@@ -179,6 +179,8 @@ return [
         Overtrue\LaravelLang\TranslationServiceProvider::class,
         // 模型过滤包
         EloquentFilter\ServiceProvider::class,
+        // 资源健康检查
+        PragmaRX\Health\ServiceProvider::class,
 
     ],
 
