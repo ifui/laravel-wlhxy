@@ -9,7 +9,7 @@ return [
     | This is the title of the health check panel, that shows up at the top-left
     | corner of the window. Feel free to edit this value to suit your needs.
     |
-    */
+     */
     'title' => 'Laravel Health Check Panel',
 
     /*
@@ -20,7 +20,7 @@ return [
     | Below is the list of resources the health checker will look into.
     | And the path to where the resources yaml files are located.
     |
-    */
+     */
     'resources' => [
 
         /*
@@ -31,7 +31,7 @@ return [
         | This value determines the path to where the resources yaml files are
         | located. By default, all resources are in config/health/resources
         |
-        */
+         */
         'path' => config_path('health/resources'),
 
         /*
@@ -43,7 +43,7 @@ return [
         | The default enabled resources are picked for the common use-case. However,
         | you are free to uncomment certain resource or add your own as you wish.
         |
-        */
+         */
         'enabled' => [
             'API',
             'AppKey',
@@ -107,7 +107,7 @@ return [
     | default, we sort by slug, but you may use other supported values below
     |
     | Options: 'abbreviation', 'slug', 'name'
-    */
+     */
     'sort_by' => 'slug',
 
     /*
@@ -117,7 +117,7 @@ return [
     |
     | Below is the list of configurations for health monitor caching mechanism
     |
-    */
+     */
     'cache' => [
         /*
         |--------------------------------------------------------------------------
@@ -127,7 +127,7 @@ return [
         | This value determines the key to use for caching the results of health
         | monitor. Please feel free to update this to suit your own convention
         |
-        */
+         */
         'key' => 'health-resources',
 
         /*
@@ -143,7 +143,7 @@ return [
         |   0 = Cache Forever
         |   false = Disables caching
         |   30 = (integer) Minutes to cache
-        */
+         */
         'minutes' => config('app.debug') === true ? false : 1,
     ],
 
@@ -214,7 +214,7 @@ return [
         ],
 
         'users' => [
-            'model' => App\User::class,
+            'model' => App\Models\AdminUser::class,
 
             'emails' => ['admin@mydomain.com'],
         ],
