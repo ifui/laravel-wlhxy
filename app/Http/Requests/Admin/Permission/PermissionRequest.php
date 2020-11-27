@@ -51,7 +51,7 @@ class PermissionRequest extends FormRequest
                 break;
 
             case 'PUT':
-                $id = Request::route()->parameters['permission'];
+                $id = Request::route('permission');
                 $rules = [
                     'name' => [Rule::unique('permissions')->ignore($id), 'max:20'],
                     'comment' => 'max:200',

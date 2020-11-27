@@ -33,7 +33,7 @@ $api->group($params_v1, function ($api) {
             $api->get('logout', 'LogoutController@logout')->name('logout');
             // 刷新令牌
             $api->get('refresh', 'RefreshController@refresh')->name('refresh');
-            $api->resource('user', 'AdminUserController');
+            $api->get('userinfo', 'AdminUserController@index')->name('userinfo');
 
         });
     });

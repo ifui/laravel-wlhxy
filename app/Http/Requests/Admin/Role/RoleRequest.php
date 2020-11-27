@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Admin\Role;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Validation\Rule;
@@ -15,7 +16,11 @@ class RoleRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        if (auth()->user()->can('Super-Admin')) {
+            return true;
+        } else {
+            throw new AuthorizationException('没有权限');
+        }
     }
 
     /**
@@ -46,7 +51,7 @@ class RoleRequest extends FormRequest
                 break;
 
             case 'PUT':
-                $id = Request::route()->parameters['permission'];
+                $id = Request::route('roles');
                 $rules = [
                     'name' => [Rule::unique('roles')->ignore($id), 'max:20'],
                     'comment' => 'max:200',
