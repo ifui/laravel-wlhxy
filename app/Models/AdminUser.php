@@ -5,13 +5,16 @@ namespace App\Models;
 use EloquentFilter\Filterable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class AdminUser extends Authenticatable implements JWTSubject
 {
-    // HasRoles laravel-permission, Filterable eloquentfilter
-    use Notifiable, HasRoles, Filterable;
+    // HasRoles laravel-permission
+    // Filterable eloquentfilter
+    // Laravel-activitylog LogsActivity
+    use Notifiable, HasRoles, Filterable, LogsActivity;
 
     // 指定守卫,参考 config/auth/guards
     protected $guard_name = 'admin';
@@ -24,6 +27,15 @@ class AdminUser extends Authenticatable implements JWTSubject
     protected $fillable = [
         'username', 'truename', 'avatar', 'password',
     ];
+
+    /**
+     * 日志字段
+     *
+     * true 表示所有字段的改变都写入日志
+     *
+     * @var array|boolean
+     */
+    protected $logAttributes = true;
 
     /**
      * The attributes that should be hidden for arrays.

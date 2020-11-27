@@ -56,5 +56,13 @@ $api->group($params_v1, function ($api) {
             Route::pattern('role', '[0-9]+');
             $api->resource('roles', 'RoleController');
         });
+
+        // 日志管理相关路由
+        $api->group([
+            'namespace' => 'Log',
+        ], function ($api) {
+            $api->get('logs', 'LogController@log')->name('log');
+        });
     });
+
 });
