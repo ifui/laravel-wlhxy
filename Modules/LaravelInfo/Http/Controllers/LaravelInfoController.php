@@ -14,8 +14,7 @@ class LaravelInfoController extends Controller
      */
     public function index()
     {
-        return config('laravelinfo.linfo');
-        $linfo = new Linfo();
+        $linfo = new Linfo(config('laravelinfo.linfo'));
         $linfo->scan();
         return $linfo->getInfo();
     }
