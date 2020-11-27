@@ -16,7 +16,7 @@ class PermissionRequest extends FormRequest
      */
     public function authorize()
     {
-        if (auth()->user()->can(['administrator'])) {
+        if (auth()->user()->can('Super-Admin')) {
             return true;
         } else {
             throw new AuthorizationException('没有权限');
