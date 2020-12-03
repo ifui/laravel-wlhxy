@@ -48,7 +48,12 @@ return [
         'global_lock_key' => config('app.name', 'Laravel'),
     ],
     'swoole_tables' => [],
-    'register_providers' => [],
+    'register_providers' => [
+        // 重载auth相关服务
+        \Illuminate\Auth\AuthServiceProvider::class,
+        \App\Providers\AuthServiceProvider::class,
+        \Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+    ],
     'cleaners' => [
         // See LaravelS's built-in cleaners: https://github.com/hhxsv5/laravel-s/blob/master/Settings.md#cleaners
     ],
