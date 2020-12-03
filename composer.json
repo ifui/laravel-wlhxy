@@ -13,6 +13,7 @@
         "dingo/blueprint": "^0.3",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
+        "hhxsv5/laravel-s": "~3.7.0",
         "laravel/framework": "^6.20",
         "laravel/tinker": "^2.5",
         "laravolt/avatar": "^4.0",

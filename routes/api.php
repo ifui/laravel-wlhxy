@@ -18,7 +18,11 @@ $params_v1 = [
 
 $api->group($params_v1, function ($api) {
     $api->get('test', function () {
-        return 'test ok';
+        $fd = 1; // Find fd by userId from a map [userId=>fd].
+        /**@var \Swoole\WebSocket\Server $swoole */
+        $swoole = app('swoole');
+        $success = $swoole->push($fd, 'Push data to fd#1 in Controller');
+        var_dump($success);
     });
 
     // 用户认证与注册
