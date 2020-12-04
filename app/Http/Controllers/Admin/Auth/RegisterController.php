@@ -31,7 +31,7 @@ class RegisterController extends Controller
 
             return $this->success('注册成功', 201);
         } catch (Exception $e) {
-            return $this->response->error('用户注册失败', 401);
+            return $this->response->error('用户注册失败' . $e, 401);
         }
     }
 }

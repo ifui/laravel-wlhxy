@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\AdminUser;
+use App\Models\User;
+use App\Observers\AdminUserObserver;
+use App\Observers\UserObserver;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
@@ -34,5 +38,9 @@ class AppServiceProvider extends ServiceProvider
                 return true;
             }
         });
+
+        // 为 User|AdminUser 模型注册观察者
+        User::observe(UserObserver::class);
+        AdminUser::observe(AdminUserObserver::class);
     }
 }
