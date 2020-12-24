@@ -9,6 +9,7 @@
 |
  */
 use Illuminate\Support\Facades\Route;
+
 $api = app('Dingo\Api\Routing\Router');
 
 $params_v1 = [

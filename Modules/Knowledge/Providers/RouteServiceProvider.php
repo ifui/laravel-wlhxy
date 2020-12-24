@@ -2,8 +2,8 @@
 
 namespace Modules\Knowledge\Providers;
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -36,6 +36,9 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapApiRoutes();
 
         $this->mapWebRoutes();
+
+        // 注册 admin 路由
+        $this->mapAdminRoutes();
     }
 
     /**
@@ -65,5 +68,13 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('api')
             ->namespace($this->moduleNamespace)
             ->group(module_path('Knowledge', '/Routes/api.php'));
+    }
+
+    protected function mapAdminRoutes()
+    {
+        Route::prefix('admin')
+            ->middleware('api')
+            ->namespace($this->moduleNamespace)
+            ->group(module_path('Knowledge', '/Routes/admin.php'));
     }
 }
