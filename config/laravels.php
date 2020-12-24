@@ -22,7 +22,7 @@ return [
     'event_handlers' => [],
     'websocket' => [
         'enable' => true, // 启用WebSocket服务器
-        'handler' => \App\Services\WebSocketService::class,
+        'handler' => \App\WebSocket\Services\WebSocketService::class,
     ],
     'sockets' => [],
     'processes' => [
@@ -34,20 +34,38 @@ return [
         //],
     ],
     'timer' => [
-        'enable' => env('LARAVELS_TIMER', false),
+        'enable' => env('LARAVELS_TIMER', true), // 启用Timer
         'jobs' => [
-            // Enable LaravelScheduleJob to run `php artisan schedule:run` every 1 minute, replace Linux Crontab
-            //\Hhxsv5\LaravelS\Illuminate\LaravelScheduleJob::class,
-            // Two ways to configure parameters:
-            // [\App\Jobs\XxxCronJob::class, [1000, true]], // Pass in parameters when registering
-            // \App\Jobs\XxxCronJob::class, // Override the corresponding method to return the configuration
+            // 启用LaravelScheduleJob来执行`php artisan schedule:run`，每分钟一次，替代Linux Crontab
+            // \Hhxsv5\LaravelS\Illuminate\LaravelScheduleJob::class,
+            // 两种配置参数的方式：
+            // [\App\Jobs\Timer\TestCronJob::class, [1000, true]], // 注册时传入参数
+            // \App\WebSocket\Jobs\Timer\SystemInfoCronJob::class, // 重载对应的方法来返回参数
         ],
-        'max_wait_time' => 5,
-        // Enable the global lock to ensure that only one instance starts the timer when deploying multiple instances.
+        'max_wait_time' => 5, // Reload时最大等待时间
+        // 打开全局定时器开关：当多实例部署时，确保只有一个实例运行定时任务，此功能依赖 Redis，具体请看 https://laravel.com/docs/7.x/redis
         'global_lock' => false,
         'global_lock_key' => config('app.name', 'Laravel'),
     ],
-    'swoole_tables' => [],
+    'swoole_tables' => [
+        // 用户 uuid 和 fd 映射
+        'User' => [
+            'size' => 102400,
+            'column' => [
+                ['name' => 'fd', 'type' => \Swoole\Table::TYPE_STRING, 'size' => 36],
+                ['name' => 'uuid', 'type' => \Swoole\Table::TYPE_STRING, 'size' => 36],
+                ['name' => 'guard', 'type' => \Swoole\Table::TYPE_STRING, 'size' => 10],
+            ],
+        ],
+        // 定时器 1: 启动信号 0: 停止信号
+        'Timer' => [
+            'size' => 102400,
+            'column' => [
+                ['name' => 'fd', 'type' => \Swoole\Table::TYPE_STRING, 'size' => 36],
+                ['name' => 'systemInfo', 'type' => \Swoole\Table::TYPE_INT, 'size' => 1],
+            ],
+        ],
+    ],
     'register_providers' => [
         // 重载auth相关服务
         \Illuminate\Auth\AuthServiceProvider::class,
@@ -68,7 +86,7 @@ return [
         'dispatch_mode' => 2,
         'reactor_num' => env('LARAVELS_REACTOR_NUM', function_exists('swoole_cpu_num') ? swoole_cpu_num() * 2 : 4),
         'worker_num' => env('LARAVELS_WORKER_NUM', function_exists('swoole_cpu_num') ? swoole_cpu_num() * 2 : 8),
-        //'task_worker_num'    => env('LARAVELS_TASK_WORKER_NUM', function_exists('swoole_cpu_num') ? swoole_cpu_num() * 2 : 8),
+        'task_worker_num' => env('LARAVELS_TASK_WORKER_NUM', function_exists('swoole_cpu_num') ? swoole_cpu_num() * 2 : 8),
         'task_ipc_mode' => 1,
         'task_max_request' => env('LARAVELS_TASK_MAX_REQUEST', 8000),
         'task_tmpdir' => @is_writable('/dev/shm/') ? '/dev/shm' : '/tmp',

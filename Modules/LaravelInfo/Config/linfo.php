@@ -48,7 +48,7 @@ return [
     // CPU Usage on Linux (per core and overall). This requires running sleep(1) once so it slows
     // the entire page load down. Enable at your own inconvenience, especially since the load averages
     // are more useful.
-    'cpu_usage' => false,
+    'cpu_usage' => true,
     "hide" => [
         "filesystems" => [
             "tmpfs",
