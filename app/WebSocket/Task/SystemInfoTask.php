@@ -61,7 +61,7 @@ class SystemInfoTask extends Task
 
     public function getInfo()
     {
-        $linfo = new Linfo(config('laravelinfo.linfo'));
+        $linfo = new Linfo(config('linfo'));
         $linfo->scan();
         $ram = $linfo->getRAM();
         $ramUsage = ($ram['total'] - $ram['free']) / $ram['total'];
