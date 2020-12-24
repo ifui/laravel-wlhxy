@@ -1,0 +1,25 @@
+{
+    "name": "nwidart/knowledge",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\Knowledge\\Providers\\KnowledgeServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Knowledge\\": ""
+        }
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "name": "Knowledge",
+    "alias": "knowledge",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\Knowledge\\Providers\\KnowledgeServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
