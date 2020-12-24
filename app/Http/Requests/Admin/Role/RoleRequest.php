@@ -47,6 +47,10 @@ class RoleRequest extends FormRequest
                     'comment' => 'max:200',
                     'permissions' => 'array',
                     'permissions.*' => 'integer|exists:permissions,id|distinct',
+                    'users' => 'array',
+                    'users.*' => 'integer|exists:users,id|distinct',
+                    'admin_users' => 'array',
+                    'admin_users.*' => 'integer|exists:admin_users,id|distinct',
                 ];
                 break;
 
@@ -57,6 +61,10 @@ class RoleRequest extends FormRequest
                     'comment' => 'max:200',
                     'permissions' => 'array',
                     'permissions.*' => 'integer|exists:permissions,id|distinct',
+                    'users' => 'array',
+                    'users.*' => 'integer|exists:users,id|distinct',
+                    'admin_users' => 'array',
+                    'admin_users.*' => 'integer|exists:admin_users,id|distinct',
                 ];
                 break;
 

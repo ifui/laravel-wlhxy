@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin\Role;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Role\RoleRequest;
+use App\Models\AdminUser;
 use App\Models\Role;
+use App\Models\User;
 
 class RoleController extends Controller
 {
@@ -32,6 +34,9 @@ class RoleController extends Controller
     {
         $role = new Role();
 
+        $users = $request->users;
+        $admin_users = $request->admin_users;
+
         // 创建角色
         try {
             $role->fill($request->all())->save();
@@ -44,6 +49,28 @@ class RoleController extends Controller
             $request->permissions && $role->syncPermissions($request->permissions);
         } catch (\Exception $e) {
             return $this->response->error('角色创建成功, 但在分配权限时发生错误', 422);
+        }
+
+        // 分配用户
+        try {
+            if ($users) {
+                foreach ($users as $user_id) {
+                    User::find($user_id)->assignRole($role);
+                }
+            }
+        } catch (\Exception $e) {
+            return $this->response->error('角色创建成功，但在分配用户时发生错误', 422);
+        }
+
+        // 分配后台管理用户
+        try {
+            if ($admin_users) {
+                foreach ($admin_users as $admin_user_id) {
+                    AdminUser::find($admin_user_id)->assignRole($role);
+                }
+            }
+        } catch (\Exception $e) {
+            return $this->response->error('角色创建成功，但在分配用户时发生错误', 422);
         }
 
         return $this->success('角色创建成功');
@@ -73,6 +100,9 @@ class RoleController extends Controller
     {
         $role = Role::find($id);
 
+        $users = $request->users;
+        $admin_users = $request->admin_users;
+
         if (!$role) {
             return $this->response->errorNotFound('角色更新失败, 无法找到该权限');
         }
@@ -89,6 +119,28 @@ class RoleController extends Controller
             $request->permissions && $role->syncPermissions($request->permissions);
         } catch (\Exception $e) {
             return $this->response->error('角色更新成功, 但在分配权限时发生错误', 422);
+        }
+
+        // 分配用户
+        try {
+            if ($users) {
+                foreach ($users as $user_id) {
+                    User::find($user_id)->assignRole($role);
+                }
+            }
+        } catch (\Exception $e) {
+            return $this->response->error('角色更新成功，但在分配用户时发生错误', 422);
+        }
+
+        // 分配后台管理用户
+        try {
+            if ($admin_users) {
+                foreach ($admin_users as $admin_user_id) {
+                    AdminUser::find($admin_user_id)->assignRole($role);
+                }
+            }
+        } catch (\Exception $e) {
+            return $this->response->error('角色更新成功，但在分配用户时发生错误', 422);
         }
 
         return $this->success('角色更新成功');

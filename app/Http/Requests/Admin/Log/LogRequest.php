@@ -4,6 +4,7 @@ namespace App\Http\Requests\Admin\Log;
 
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class LogRequest extends FormRequest
 {

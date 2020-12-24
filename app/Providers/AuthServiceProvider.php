@@ -24,7 +24,17 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+        // Implicitly grant "Super Admin" role all permission checks using can()
+        // 当角色ID为1或者为 Super-Admin 时，can() 方法返回 true
+        Gate::before(function ($user, $ability) {
+            dump('user id' . $user->id);
+            if ($user->hasRole('Super-Admin')) {
+                return true;
+            }
+            if ($user->id === 1) {
+                return true;
+            }
+        });
 
-        //
     }
 }

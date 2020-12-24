@@ -67,13 +67,15 @@ return [
         ],
     ],
     'register_providers' => [
-        // 重载auth相关服务
-        \Illuminate\Auth\AuthServiceProvider::class,
-        \App\Providers\AuthServiceProvider::class,
         \Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+
     ],
     'cleaners' => [
         // See LaravelS's built-in cleaners: https://github.com/hhxsv5/laravel-s/blob/master/Settings.md#cleaners
+        // "tymon/jwt-auth" 清理器
+        Hhxsv5\LaravelS\Illuminate\Cleaners\SessionCleaner::class,
+        Hhxsv5\LaravelS\Illuminate\Cleaners\AuthCleaner::class,
+        Hhxsv5\LaravelS\Illuminate\Cleaners\JWTCleaner::class,
     ],
     'destroy_controllers' => [
         'enable' => false,
