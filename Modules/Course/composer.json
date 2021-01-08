@@ -1,5 +1,5 @@
 {
-    "name": "nwidart/knowledge",
+    "name": "nwidart/course",
     "description": "",
     "authors": [
         {
@@ -10,7 +10,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Modules\\Knowledge\\Providers\\KnowledgeServiceProvider"
+                "Modules\\Course\\Providers\\CourseServiceProvider"
             ],
             "aliases": {
 
@@ -19,7 +19,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Modules\\Knowledge\\": ""
+            "Modules\\Course\\": ""
         }
     }
 }

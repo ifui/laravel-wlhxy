@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Knowledge\Providers;
+namespace Modules\Course\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
@@ -12,7 +12,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $moduleNamespace = 'Modules\Knowledge\Http\Controllers';
+    protected $moduleNamespace = 'Modules\Course\Http\Controllers';
 
     /**
      * Called before routes are registered.
@@ -52,7 +52,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::middleware('web')
             ->namespace($this->moduleNamespace)
-            ->group(module_path('Knowledge', '/Routes/web.php'));
+            ->group(module_path('Course', '/Routes/web.php'));
     }
 
     /**
@@ -67,7 +67,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::prefix('api')
             ->middleware('api')
             ->namespace($this->moduleNamespace)
-            ->group(module_path('Knowledge', '/Routes/api.php'));
+            ->group(module_path('Course', '/Routes/api.php'));
     }
 
     protected function mapAdminRoutes()

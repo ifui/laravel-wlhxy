@@ -1,11 +1,11 @@
 <?php
 
-namespace Modules\Knowledge\Providers;
+namespace Modules\Course\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
 
-class KnowledgeServiceProvider extends ServiceProvider
+class CourseServiceProvider extends ServiceProvider
 {
     /**
      * Boot the application events.
@@ -18,7 +18,7 @@ class KnowledgeServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->registerFactories();
-        $this->loadMigrationsFrom(module_path('Knowledge', 'Database/Migrations'));
+        $this->loadMigrationsFrom(module_path('Course', 'Database/Migrations'));
     }
 
     /**
@@ -39,10 +39,10 @@ class KnowledgeServiceProvider extends ServiceProvider
     protected function registerConfig()
     {
         $this->publishes([
-            module_path('Knowledge', 'Config/config.php') => config_path('knowledge.php'),
+            module_path('Course', 'Config/config.php') => config_path('course.php'),
         ], 'config');
         $this->mergeConfigFrom(
-            module_path('Knowledge', 'Config/config.php'), 'knowledge'
+            module_path('Course', 'Config/config.php'), 'course'
         );
     }
 
@@ -53,17 +53,17 @@ class KnowledgeServiceProvider extends ServiceProvider
      */
     public function registerViews()
     {
-        $viewPath = resource_path('views/modules/knowledge');
+        $viewPath = resource_path('views/modules/course');
 
-        $sourcePath = module_path('Knowledge', 'Resources/views');
+        $sourcePath = module_path('Course', 'Resources/views');
 
         $this->publishes([
             $sourcePath => $viewPath
         ],'views');
 
         $this->loadViewsFrom(array_merge(array_map(function ($path) {
-            return $path . '/modules/knowledge';
-        }, \Config::get('view.paths')), [$sourcePath]), 'knowledge');
+            return $path . '/modules/course';
+        }, \Config::get('view.paths')), [$sourcePath]), 'course');
     }
 
     /**
@@ -73,12 +73,12 @@ class KnowledgeServiceProvider extends ServiceProvider
      */
     public function registerTranslations()
     {
-        $langPath = resource_path('lang/modules/knowledge');
+        $langPath = resource_path('lang/modules/course');
 
         if (is_dir($langPath)) {
-            $this->loadTranslationsFrom($langPath, 'knowledge');
+            $this->loadTranslationsFrom($langPath, 'course');
         } else {
-            $this->loadTranslationsFrom(module_path('Knowledge', 'Resources/lang'), 'knowledge');
+            $this->loadTranslationsFrom(module_path('Course', 'Resources/lang'), 'course');
         }
     }
 
@@ -90,7 +90,7 @@ class KnowledgeServiceProvider extends ServiceProvider
     public function registerFactories()
     {
         if (! app()->environment('production') && $this->app->runningInConsole()) {
-            app(Factory::class)->load(module_path('Knowledge', 'Database/factories'));
+            app(Factory::class)->load(module_path('Course', 'Database/factories'));
         }
     }
 

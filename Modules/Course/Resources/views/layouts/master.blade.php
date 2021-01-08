@@ -4,16 +4,16 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Module Knowledge</title>
+        <title>Module Course</title>
 
        {{-- Laravel Mix - CSS File --}}
-       {{-- <link rel="stylesheet" href="{{ mix('css/knowledge.css') }}"> --}}
+       {{-- <link rel="stylesheet" href="{{ mix('css/course.css') }}"> --}}
 
     </head>
     <body>
         @yield('content')
 
         {{-- Laravel Mix - JS File --}}
-        {{-- <script src="{{ mix('js/knowledge.js') }}"></script> --}}
+        {{-- <script src="{{ mix('js/course.js') }}"></script> --}}
     </body>
 </html>
