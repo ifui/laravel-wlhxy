@@ -13,14 +13,14 @@ $api = app('Dingo\Api\Routing\Router');
 
 $params_v1 = [
     'version' => 'v1',
-    'prefix' => 'admin/course',
-    'namespace' => 'Modules\Course\Http\Controllers\Admin',
+    'prefix' => 'admin/class',
+    'namespace' => 'Modules\Classes\Http\Controllers\Admin',
     'middleware' => 'auth:admin',
 ];
 
 $api->group($params_v1, function ($api) {
     $api->get('test', function () {
-        return true;
+        return '11';
     });
 
     // 分类列表
