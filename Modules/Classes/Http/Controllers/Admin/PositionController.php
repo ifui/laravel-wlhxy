@@ -2,19 +2,22 @@
 
 namespace Modules\Classes\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Routing\Controller;
+use Modules\Classes\Entities\Models\ClassesPosition;
+use Modules\Classes\Http\Controllers\ClassesController;
+use Modules\Classes\Http\Requests\Admin\PositionRequest;
 
-class PositionController extends Controller
+class PositionController extends ClassesController
 {
     /**
      * Display a listing of the resource.
      * @return Response
      */
-    public function index()
+    public function index(PositionRequest $request)
     {
-        //
+        $model = new ClassesPosition();
+
+        return $model->with('course')->filter($request->all())->OrderBy('order')->paginateFilter();
     }
 
     /**
@@ -22,9 +25,17 @@ class PositionController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(PositionRequest $request)
     {
-        //
+        $model = new ClassesPosition();
+
+        try {
+            $model->fill($request->all())->save();
+        } catch (\Exception $e) {
+            return $this->error('创建失败', 422, $e);
+        }
+
+        return $this->success('创建成功');
     }
 
     /**
@@ -34,7 +45,7 @@ class PositionController extends Controller
      */
     public function show($id)
     {
-        //
+        return ClassesPosition::with('course')->find($id);
     }
 
     /**
@@ -43,9 +54,24 @@ class PositionController extends Controller
      * @param int $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(PositionRequest $request, $id)
     {
-        //
+        $model = new ClassesPosition();
+
+        $model = $model->find($id);
+
+        if (!$model) {
+            return $this->error('更新失败，没有找到该资源', 404);
+        }
+
+        try {
+
+            $model->fill($request->all())->save();
+        } catch (\Exception $e) {
+            return $this->error('更新失败', 422, $e);
+        }
+
+        return $this->success('更新成功');
     }
 
     /**
@@ -55,6 +81,20 @@ class PositionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $model = new ClassesPosition();
+
+        $model = $model->find($id);
+
+        if (!$model) {
+            return $this->error('该资源不存在', 404);
+        }
+
+        try {
+            $model->delete();
+        } catch (\Exception $e) {
+            return $this->error('删除失败', 422, $e);
+        }
+
+        return $this->success('删除成功');
     }
 }

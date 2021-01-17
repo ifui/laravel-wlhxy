@@ -4,17 +4,21 @@ namespace Modules\Classes\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Routing\Controller;
+use Modules\Classes\Entities\Models\ClassesChapter;
+use Modules\Classes\Http\Controllers\ClassesController;
+use Modules\Classes\Http\Requests\Admin\ChapterRequest;
 
-class ChapterController extends Controller
+class ChapterController extends ClassesController
 {
     /**
      * Display a listing of the resource.
      * @return Response
      */
-    public function index()
+    public function index(ChapterRequest $request)
     {
-        //
+        $model = new ClassesChapter();
+
+        return $model->with('course')->filter($request->all())->OrderBy('order')->paginateFilter();
     }
 
     /**
@@ -22,9 +26,17 @@ class ChapterController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(ChapterRequest $request)
     {
-        //
+        $model = new ClassesChapter();
+
+        try {
+            $model->fill($request->all())->save();
+        } catch (\Exception $e) {
+            return $this->error('章节创建失败', 422, $e);
+        }
+
+        return $this->success('章节创建成功');
     }
 
     /**
@@ -34,7 +46,7 @@ class ChapterController extends Controller
      */
     public function show($id)
     {
-        //
+        return ClassesChapter::with('course')->find($id);
     }
 
     /**
@@ -43,9 +55,24 @@ class ChapterController extends Controller
      * @param int $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(ChapterRequest $request, $id)
     {
-        //
+        $model = new ClassesChapter();
+
+        $model = $model->find($id);
+
+        if (!$model) {
+            return $this->error('章节更新失败，没有找到该课程', 404);
+        }
+
+        try {
+
+            $model->fill($request->all())->save();
+        } catch (\Exception $e) {
+            return $this->error('更新失败', 422, $e);
+        }
+
+        return $this->success('更新成功');
     }
 
     /**
@@ -55,6 +82,20 @@ class ChapterController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $model = new ClassesChapter();
+
+        $model = $model->find($id);
+
+        if (!$model) {
+            return $this->error('该章节不存在', 404);
+        }
+
+        try {
+            $model->delete();
+        } catch (\Exception $e) {
+            return $this->error('删除失败', 422, $e);
+        }
+
+        return $this->success('删除成功');
     }
 }

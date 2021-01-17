@@ -2,78 +2,40 @@
 
 namespace Modules\Classes\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 class ClassesController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     * @return Response
+     * 返回成功信息
+     *
+     * @param string $message 提示信息
+     * @param int $status 状态码
+     * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function success(string $message, int $status = 200)
     {
-        return view('classes::index');
+        return Response([
+            'status' => true,
+            'message' => $message,
+        ], $status);
     }
 
     /**
-     * Show the form for creating a new resource.
-     * @return Response
+     * 返回失败信息
+     *
+     * @param string $message 提示信息
+     * @param int $status 状态码
+     * @param string $errors 错误信息
+     * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function error(string $message, int $status = 400, string $errors = null)
     {
-        return view('classes::create');
+        return Response([
+            'status' => false,
+            'message' => $message,
+            'errors' => $errors,
+        ], $status);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        return view('classes::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        return view('classes::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

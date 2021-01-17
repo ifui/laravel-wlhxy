@@ -7,7 +7,6 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
 use Laravolt\Avatar\Facade as Avatar;
 
@@ -24,7 +23,27 @@ class Controller extends BaseController
      */
     public function success(string $message, int $status = 200)
     {
-        return Response(['message' => $message], $status);
+        return Response([
+            'status' => true,
+            'message' => $message,
+        ], $status);
+    }
+
+    /**
+     * 返回失败信息
+     *
+     * @param string $message 提示信息
+     * @param int $status 状态码
+     * @param string $errors 错误信息
+     * @return \Illuminate\Http\Response
+     */
+    public function error(string $message, int $status = 400, string $errors = null)
+    {
+        return Response([
+            'status' => false,
+            'message' => $message,
+            'errors' => $errors,
+        ], $status);
     }
 
     /**
